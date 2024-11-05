@@ -84,10 +84,10 @@ class GraphConvolution(nn.Module):
 
 
 
-class OSGNNLayer(nn.Module):
+class OSLayer(nn.Module):
 
     def __init__(self, num_graph, in_size, out_size, dropout):
-        super(OSGNNLayer, self).__init__()
+        super(OSLayer, self).__init__()
         self.gcn_layers = nn.ModuleList()
         self.dropout = nn.Dropout(p=dropout)
         for i in range(num_graph):
@@ -109,14 +109,14 @@ class OSGNNLayer(nn.Module):
         semantic_embeddings = torch.stack(semantic_embeddings, dim=1)
         return self.semantic_attention(semantic_embeddings, agg), loss
 
-class OSGNN(nn.Module):
+class OS(nn.Module):
     def __init__(self, num_graph, hidden_size, out_size, num_layer, dropout):
         super(OSGNN, self).__init__()
         self.dropout = nn.Dropout(p=dropout)
         self.layers = nn.ModuleList()
-        self.layers.append(OSGNNLayer(num_graph, hidden_size, 32, dropout))
+        self.layers.append(OSLayer(num_graph, hidden_size, 32, dropout))
         for l in range(1, num_layer):
-            self.layers.append(OSGNNLayer(num_graph, hidden_size, hidden_size, dropout))
+            self.layers.append(OSLayer(num_graph, hidden_size, hidden_size, dropout))
         self.predict = nn.Linear(32*2, out_size)
 
     def forward(self, g, h, agg):
