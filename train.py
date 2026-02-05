@@ -3,9 +3,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 
-########################################
-# 1. 计算关联分数
-########################################
+
 def compute_association_score(h_disease, h_drug, disease_indices, drug_indices):
     """
     根据疾病和药物节点特征, 计算一批 (disease_i, drug_j) 的关联得分 y_hat.
@@ -29,9 +27,7 @@ def compute_association_score(h_disease, h_drug, disease_indices, drug_indices):
     probs = torch.sigmoid(logits)
     return probs
 
-########################################
-# 2. 简易模型类 (示例)
-########################################
+
 class AssocModel(nn.Module):
     """
     演示一个整体流程, 其中:
@@ -52,9 +48,7 @@ class AssocModel(nn.Module):
         logits = (self.h_disease[disease_indices] * self.h_drug[drug_indices]).sum(dim=1)
         return logits
 
-########################################
-# 3. 训练/测试示例
-########################################
+
 if __name__ == '__main__':
     # 假设我们有4个疾病, 5个药物 => final embedding dimension=8
     num_d, num_r, dim = 4, 5, 8
