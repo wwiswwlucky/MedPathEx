@@ -101,9 +101,7 @@ class GCNNet(nn.Module):
         h = self.gcn2(A_norm, h)
         return h
 
-###############################
-# 5. 综合示例: Projection + GCN
-###############################
+
 def extract_similarity_features(sim_matrix, input_features, proj_out_dim=64, gcn_hidden_dim=32, gcn_out_dim=16):
     """
     给定一个相似性矩阵 (N,N) 和节点初始特征 (N, M)，
@@ -133,7 +131,7 @@ def extract_similarity_features(sim_matrix, input_features, proj_out_dim=64, gcn
 
 
 if __name__ == '__main__':
-    # 假设我们有 7 个节点(N=7)的相似矩阵(与论文示例数值类似)
+    
     sim_example = [
         [1, 0, 0, 0, 0, 0, 0.054744526],
         [0, 1, 0, 0, 0, 0, 0],
