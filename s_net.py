@@ -64,16 +64,7 @@ class GCNLayer(nn.Module):
         nn.init.xavier_uniform_(self.weight)  # 参数初始化
 
     def forward(self, A_norm, H_in):
-        """
-        参数:
-        ------
-        A_norm: [N, N], 归一化邻接矩阵
-        H_in:   [N, in_dim], 上一层输出特征 (或初始特征)
 
-        返回:
-        ------
-        H_out:  [N, out_dim], 当前层输出特征
-        """
         # (N, in_dim) * (in_dim, out_dim) -> (N, out_dim)
         support = torch.matmul(H_in, self.weight)
         # (N, N) * (N, out_dim) -> (N, out_dim)
@@ -162,7 +153,7 @@ if __name__ == '__main__':
     print(f'[GCN Output] h_out shape = {h_out.shape}')  # [7, 2]
 
     # 也可直接调用封装的 extract_similarity_features 函数
-    # (如在生产环境，通常不会写测试在同文件里)
+
     final_rep = extract_similarity_features(
         sim_matrix=sim_example.numpy(),          # NxN
         input_features=init_features.numpy(),    # NxM
