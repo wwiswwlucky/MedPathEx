@@ -40,7 +40,7 @@ def normalize_adjacency(adj):
 
 class ProjectionLayer(nn.Module):
     """
-    实现公式 h_S = W_S * x_S
+     h_S = W_S * x_S
     """
     def __init__(self, in_dim, out_dim):
         super(ProjectionLayer, self).__init__()
@@ -94,13 +94,7 @@ class GCNNet(nn.Module):
 
 
 def extract_similarity_features(sim_matrix, input_features, proj_out_dim=64, gcn_hidden_dim=32, gcn_out_dim=16):
-    """
-    给定一个相似性矩阵 (N,N) 和节点初始特征 (N, M)，
-    先做线性投影 h_S = W_S * x_S (维度: proj_out_dim)，
-    然后做两层GCN得到最终的节点表示 (维度: gcn_out_dim)。
-    
-    返回: h_final, shape=[N, gcn_out_dim]
-    """
+  
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
     # 1) 把 sim_matrix, input_features 转成 Torch Tensor
